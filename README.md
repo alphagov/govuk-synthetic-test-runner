@@ -2,6 +2,8 @@
 
 This is a synthetic test app used to run Ginkgo tests to test aspects of the GOV.UK infrastructure.
 
+## Trigger release
+
 ## Deploying the tests on EKS
 
 To deploy the tests you will need to merge in your changes to the `main` branch and then update the image tag in the [govuk-helm-charts repo](https://github.com/alphagov/govuk-helm-charts/blob/main/charts/govuk-synthetic-test-runner/values.yaml#L2) to the latest release.
