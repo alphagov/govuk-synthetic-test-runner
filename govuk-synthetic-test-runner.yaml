@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: govuk-synthetic-test-runner
+  labels:
+    app: govuk-synthetic-test-runner
+    app.kubernetes.io/name: govuk-synthetic-test-runner
+spec:
+    serviceAccountName: synthetic-test-assumer
+    restartPolicy: Never
+    containers:
+      - name: govuk-synthetic-test-runner
+        image: 'ghcr.io/alphagov/govuk/govuk-synthetic-test-runner:0e00517695bb23d5d96070952be0e9c3e27aa9ba'
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+    tolerations:
+      - key: arch
+        operator: Equal
+        value: arm64
+        effect: NoSchedule
