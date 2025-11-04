@@ -1,0 +1,26 @@
+name: Build runner
+
+run-name: Build runner ${{ inputs.gitRef || github.ref }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      gitRef:
+        description: 'Commit, tag or branch name to build'
+        required: true
+        type: string
+        default: 'main'
+  release:
+    types: [released]
+
+jobs:
+  build-and-publish-runner-image:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.release.tag_name, 'v')
+    name: Build and publish runner image
+    uses: alphagov/govuk-infrastructure/.github/workflows/build-and-push-multiarch-image.yml@main
+    with:
+      gitRef: ${{ inputs.gitRef || github.event.release.tag_name }}
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
