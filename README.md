@@ -1,3 +1,5 @@
+Retired as duplicate of govuk-synthetic-test-app
+
 # GOV.UK Synthetic test app
 
 This is a synthetic test app used to run Ginkgo tests to test aspects of the GOV.UK infrastructure.
